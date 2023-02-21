@@ -19,7 +19,8 @@
 </head>
 
 <body>
-    <form action="search" method="POST">
+    <form action="{% url 'core:search' %}" method="POST" enctype="multipart/form-data">
+    {% comment %} <form action="search" method="POST" enctype="multipart/form-data"> {% endcomment %}
         {% csrf_token %}
         <header style="margin-top: -23px;">
             <div class="header_inner">
@@ -55,6 +56,9 @@
                     <a href="#" class="">
                         Welcome <b name="" class="">{{user.username}}&nbsp; &nbsp; &nbsp;</b>
                     </a>
+                    <div class="left-side lg:pr-4">
+                        <a href="{% url 'home' %}"&nbsp; &nbsp; &nbsp;> Home </a>
+                    </div>
 
                     <!-- upload -->
                     <a href="#"
@@ -187,13 +191,13 @@
                     <!-- profile -->
 
                     <a href="#">
-                        <img src="{{ user_profile.profileimg.url }}" class="header-avatar" alt="">
+                        <img src="{{ user_profile.profile_img.url }}" class="header-avatar" alt="">
                     </a>
                     <div uk-drop="mode: click;offset:9" class="header_dropdown profile_dropdown border-t">
                         <ul>
-                            <li><a href="/settings"> Account setting </a> </li>
+                            <li><a href="{% url 'core:settings' %}"> Account setting </a> </li>
                             <!-- <li><a href="explore.html">explore </a> </li> -->
-                            <li><a href="/logout"> Log Out</a></li>
+                            <li><a href="{% url 'core:signin' %}"> Log Out</a></li>
                         </ul>
                     </div>
 
@@ -333,15 +337,15 @@
 
                     {% for users in username_profile_list %}
                     <section class="search-result-item">
-                        <a class="image-link" href="/profile/{{users.user}}"><img class="image"
+                        <a class="image-link" href="{% url 'core:profile' users.user %}"><img class="image"
                                 src="{{users.profile_img.url}}">
                         </a>
                         <div class="search-result-item-body">
                             <div class="row">
                                 <div class="col-sm-9">
                                     <h4 class="search-result-item-heading"><a
-                                            href="/profile/{{users.user}}"><b>@{{users.user}}</b></a></h4>
-                                    <p class="info">{{users.location}}</p>
+                                            href="{% url 'core:profile' users.user %}"><b>@{{users.user}}</b></a></h4>
+                                            <p class="info">{{users.location}}</p>
                                     <p class="description">{{users.bio}}</p>
                                 </div>
                                 <!-- <div class="col-sm-3 text-align-center">

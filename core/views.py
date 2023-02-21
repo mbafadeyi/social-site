@@ -80,9 +80,9 @@ def upload(request):
         new_post = Post.objects.create(user=user, image=image, caption=caption)
         new_post.save()
 
-        return redirect("/")
+        return redirect("home")
     else:
-        return redirect("/")
+        return redirect("home")
 
 
 @login_required(login_url="signin")
@@ -209,7 +209,7 @@ def settings(request):
             user_profile.location = location
             user_profile.save()
 
-        return redirect("settings")
+        return redirect("home")
     return render(request, "setting.html", {"user_profile": user_profile})
 
 
@@ -244,7 +244,7 @@ def signup(request):
                     user=user_model, id_user=user_model.id
                 )
                 new_profile.save()
-                return redirect("setting")
+                return redirect("settings")
         else:
             messages.info(request, "Password Not Matching")
             return redirect("signup")
